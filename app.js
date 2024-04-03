@@ -1,24 +1,35 @@
 const ul = document.querySelector("ul");
 const li = document.createElement("li");
+const resetButton = document.querySelector(".resetButton");
 const inputTask = document.querySelector(".task");
 let task = null;
+let taskList = [];
 
-const listeTache = [];
-
-function addTask(task) {
+function addTaskToLocalStorage(task) {
+  taskList.push(task);
+  localStorage.setItem("taskList", JSON.stringify(taskList));
   li.textContent = task;
   ul.append(li);
-  console.log(task);
 }
 
 function getTasks() {
-  const taskList = localStorage.getItem("listeTache");
+  taskList = JSON.parse(localStorage.getItem("taskList"));
+  taskList.forEach((task) => {
+    li.textContent = task;
+    ul.append(li);
+  });
+}
+
+function handleResetButton() {
+  localStorage.clear();
 }
 
 document.querySelector("form").onsubmit = function (e) {
   e.preventDefault();
 
   task = document.querySelector(".form").elements["task"].value;
-  addTask(task);
+  addTaskToLocalStorage(task);
   this.reset();
 };
+
+resetButton.addEventListener("click", handleResetButton);
