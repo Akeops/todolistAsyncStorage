@@ -39,7 +39,12 @@ function getTasks() {
 
 function addTaskToDom(task) {
   const li = document.createElement("li");
+  const button = document.createElement("button");
+  button.textContent = "X";
+  button.className = "deleteButton";
   li.textContent = task;
+  li.className = "listLi";
+  li.append(button);
   ul.appendChild(li);
 }
 

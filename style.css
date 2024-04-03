@@ -7,29 +7,40 @@ li {
   list-style-type: none; /* Enlève les puces ou les numéros */
 }
 
+.listLi {
+  padding: 0.5em;
+}
+
 .inputTask {
   border: 1px solid #1288b7;
   border-radius: 5px;
 }
 
 button {
+  display: inline;
+  margin: 1em;
   padding: 5px;
   border-radius: 5px;
   background-color: #20a8d7;
-  border: 2px solid #1288b7;
+  border: 1px solid #1288b7;
 }
 
 button:hover {
   cursor: pointer;
   background-color: #1288b7;
-  transition:
-    background-color 0.15s,
-    font-size 0.15s;
-  border: 2px solid #1288b7;
+  border: 1px solid #1288b7;
 }
 
 button:active {
   color: black;
   background-color: #106c94;
   border: 0;
+}
+
+.deleteButton {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #20a8d7;
+  border: 2px solid #1288b7;
+  margin-left: 1em;
 }
