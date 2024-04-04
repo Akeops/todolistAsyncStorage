@@ -71,15 +71,9 @@ resetButton.addEventListener("click", () => {
 
 function deleteTask(itemIndex) {
   let tasksJSON = localStorage.getItem("taskList");
-  if (tasksJSON) {
-    const tasks = JSON.parse(tasksJSON);
+  const tasks = JSON.parse(tasksJSON);
+  tasks.splice(itemIndex, 1);
 
-    if (itemIndex >= 0) {
-      tasks.splice(itemIndex, 1);
-    }
-    localStorage.setItem("taskList", JSON.stringify(tasks));
-    getTasks();
-  } else {
-    console.log("Index invalide ou en dehors de la plage du tableau");
-  }
+  localStorage.setItem("taskList", JSON.stringify(tasks));
+  getTasks();
 }
