@@ -1,7 +1,7 @@
 let li;
 const ul = document.querySelector("ul");
 const resetButton = document.querySelector(".resetButton");
-const inputTask = document.querySelector(".inputTask");
+//const inputTask = document.querySelector(".inputTask");
 let taskList = [];
 
 // Fonction qui ajoute une tâche.
@@ -32,20 +32,31 @@ document.querySelector("form").onsubmit = function (e) {
 function getTasks() {
   ul.textContent = "";
   taskList = JSON.parse(localStorage.getItem("taskList"));
-  taskList.forEach((task) => {
-    addTaskToDom(task);
+
+  taskList.forEach((task, index) => {
+    addTaskToDom(task, index);
   });
 }
 
-function addTaskToDom(task) {
+function addTaskToDom(task, index) {
   const li = document.createElement("li");
   const button = document.createElement("button");
-  button.textContent = "X";
+  const span = document.createElement("span");
+
+  span.textContent = index;
   button.className = "deleteButton";
-  li.textContent = task;
+  button.textContent = "X";
   li.className = "listLi";
+
+  li.append(span);
+  li.append("  " + task);
   li.append(button);
   ul.appendChild(li);
+
+  button.addEventListener("click", () => {
+    deleteTask(index);
+    li.remove();
+  });
 }
 
 function handleResetButton() {
@@ -57,3 +68,18 @@ resetButton.addEventListener("click", () => {
   handleResetButton();
   getTasks();
 });
+
+function deleteTask(itemIndex) {
+  let tasksJSON = localStorage.getItem("taskList");
+  if (tasksJSON) {
+    const tasks = JSON.parse(tasksJSON);
+
+    if (itemIndex >= 0) {
+      tasks.splice(itemIndex, 1);
+    }
+    localStorage.setItem("taskList", JSON.stringify(tasks));
+    getTasks();
+  } else {
+    console.log("Index invalide ou en dehors de la plage du tableau");
+  }
+}
