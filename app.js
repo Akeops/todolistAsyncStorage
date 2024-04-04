@@ -1,8 +1,10 @@
 let li;
-const ul = document.querySelector("ul");
+const taskUl = document.querySelector(".taskUl");
+let archiveUl = document.querySelector(".archiveList");
 const resetButton = document.querySelector(".resetButton");
 //const inputTask = document.querySelector(".inputTask");
 let taskList = [];
+let archiveList = [];
 
 // Fonction qui ajoute une tâche.
 function addTaskToLocalStorage(task) {
@@ -20,6 +22,21 @@ function addTaskToLocalStorage(task) {
   }
 }
 
+function addTaskToArchiveLocalStorage(task) {
+  try {
+    archiveList = JSON.parse(localStorage.getItem("archiveList")) || [];
+    if (!Array.isArray(taskList)) {
+      archiveList = [];
+    } else {
+      archiveList.push(task);
+      localStorage.setItem("archiveList", JSON.stringify(archiveList));
+      getArchivesTasks();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // Récupère les données du formulaire et execute la fonction d'ajout de tâche.
 document.querySelector("form").onsubmit = function (e) {
   e.preventDefault();
@@ -30,12 +47,33 @@ document.querySelector("form").onsubmit = function (e) {
 };
 
 function getTasks() {
-  ul.textContent = "";
+  taskUl.textContent = "";
   taskList = JSON.parse(localStorage.getItem("taskList"));
 
   taskList.forEach((task, index) => {
     addTaskToDom(task, index);
   });
+}
+
+function getArchivesTasks() {
+  archiveUl.textContent = "";
+  archiveList = JSON.parse(localStorage.getItem("archiveList"));
+
+  archiveList.forEach((task, index) => {
+    addTaskToDom(task, index);
+  });
+}
+
+function addTaskToArchive(task, index) {
+  const archiveLi = document.createElement("li");
+  const span = document.createElement("span");
+
+  span.textContent = index;
+  archiveLi.className = "archiveLi";
+
+  archiveLi.append(span);
+  archiveLi.append("  " + task);
+  archiveUl.appendChild(archiveLi);
 }
 
 function addTaskToDom(task, index) {
@@ -51,7 +89,12 @@ function addTaskToDom(task, index) {
   li.append(span);
   li.append("  " + task);
   li.append(button);
-  ul.appendChild(li);
+  taskUl.appendChild(li);
+
+  button.addEventListener("click", () => {
+    addTaskToArchive(task, index);
+    addTaskToArchiveLocalStorage(task);
+  });
 
   button.addEventListener("click", () => {
     deleteTask(index);
@@ -63,7 +106,6 @@ function handleResetButton() {
   localStorage.removeItem("taskList");
 }
 
-getTasks();
 resetButton.addEventListener("click", () => {
   handleResetButton();
   getTasks();
@@ -77,3 +119,5 @@ function deleteTask(itemIndex) {
   localStorage.setItem("taskList", JSON.stringify(tasks));
   getTasks();
 }
+
+getTasks();
