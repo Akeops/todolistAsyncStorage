@@ -12,29 +12,28 @@
 <body>
     <h1>My ToDoList</h1>
 
-    <h2>Nouvelle tâche</h2>
-    <form action="" method="post" class="form">
-        <label>
-            <input type="text" class="inputTask" placeholder="Tâche..." name="task"/>
-        </label>
-        <div class="content">
-            <button type="submit" class="submitButton">+</button>
-        </div>
-    </form>
-    <button class="resetButton">Reset</button>
+    <h2>New task</h2>
+    <div id="form">
+        <form action="" method="post" class="form">
+            <label>
+                <input type="text" class="inputTask" placeholder="Tâche..." name="task"/>
+            </label>
+            <div class="content">
+                <button type="submit" class="submitButton">+</button>
+            </div>
+        </form>
+        <button class="resetButton">Reset</button>
+    </div>
 
-
-    <h2>Mes tâches:</h2>
-    <div>
+    <div id="list">
+        <h2>My tasks</h2>
         <ul class="taskUl">
-
         </ul>
     </div>
 
-    <h2>Tâches terminées:</h2>
-    <div>
+    <div id="archive">
+        <h2>Completed task</h2>
         <ul class="archiveList">
-
         </ul>
     </div>
 </body>

@@ -1,3 +1,7 @@
+#form {
+  display: inline-block;
+}
+
 .content {
   display: flex;
   align-items: center;
