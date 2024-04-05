@@ -1,5 +1,6 @@
 let li;
 const taskUl = document.querySelector(".taskUl");
+const divArchive = document.querySelector(".archiveList");
 let archiveUl = document.querySelector(".archiveList");
 const resetButton = document.querySelector(".resetButton");
 //const inputTask = document.querySelector(".inputTask");
@@ -57,19 +58,30 @@ function getTasks() {
 
 function getArchivesTasks() {
   archiveUl.textContent = "";
+  const button = document.createElement("button");
   archiveList = JSON.parse(localStorage.getItem("archiveList"));
 
+  button.className = "deleteButton";
+  button.textContent = "Reset";
+
   archiveList.forEach((task, index) => {
-    addTaskToDom(task, index);
+    addTaskToArchiveDom(task, index);
+  });
+  divArchive.append(button);
+
+  button.addEventListener("click", () => {
+    handleResetArchiveList();
+    getArchivesTasks();
   });
 }
 
-function addTaskToArchive(task, index) {
+function addTaskToArchiveDom(task, index) {
   const archiveLi = document.createElement("li");
   const span = document.createElement("span");
 
   span.textContent = index;
   archiveLi.className = "archiveLi";
+  console.log(task);
 
   archiveLi.append(span);
   archiveLi.append("  " + task);
@@ -92,7 +104,7 @@ function addTaskToDom(task, index) {
   taskUl.appendChild(li);
 
   button.addEventListener("click", () => {
-    addTaskToArchive(task, index);
+    addTaskToArchiveDom(task, index);
     addTaskToArchiveLocalStorage(task);
   });
 
@@ -104,6 +116,10 @@ function addTaskToDom(task, index) {
 
 function handleResetButton() {
   localStorage.removeItem("taskList");
+}
+
+function handleResetArchiveList() {
+  localStorage.removeItem("archiveList");
 }
 
 resetButton.addEventListener("click", () => {
@@ -121,3 +137,4 @@ function deleteTask(itemIndex) {
 }
 
 getTasks();
+getArchivesTasks();
