@@ -3,7 +3,6 @@ const taskUl = document.querySelector(".taskUl");
 const divArchive = document.querySelector(".archiveList");
 let archiveUl = document.querySelector(".archiveList");
 const resetButton = document.querySelector(".resetButton");
-//const inputTask = document.querySelector(".inputTask");
 let taskList = [];
 let archiveList = [];
 
@@ -47,22 +46,19 @@ document.querySelector("form").onsubmit = function (e) {
   this.reset();
 };
 
-function displayEmptyList() {
-	const span = document.createElement("span");
-	span.textContent = "Il n'y a pas de tâche pour le moment...";
-	taskUl.append(span);
+// Permet d'afficher un message lorsque la liste est vide
+function displayEmptyList(text, ulElement) {
+	const p = document.createElement("p");
+	p.textContent = text;
+	ulElement.append(p);
 }
-
-
 
 function getTasks() {
   taskList = JSON.parse(localStorage.getItem("taskList"));
   taskUl.textContent = "";
 
   if (taskList.length === 0) {
-		const p = document.createElement("p");
-		p.textContent = "Il n'y a pas de tâche pour le moment...";
-		taskUl.append(p);
+    displayEmptyList("Il n'y a pas de tâche pour le moment...", taskUl);
   } else {
     taskList.forEach((task, index) => {
 		addTaskToDom(task, index);
@@ -77,9 +73,7 @@ function getArchivesTasks() {
   const button = document.createElement("button");
   
   if (!archiveList || archiveList.length === 0) {
-    const p = document.createElement("p");
-	  p.textContent = "Il n'y a pas de tâche archivée pour le moment...";
-	  archiveUl.append(p);
+    displayEmptyList("Il n'y a pas de tâche archivée pour le moment...", archiveUl);
   } else {
     archiveList.forEach((task, index) => {
       addTaskToArchiveDom(task, index);
@@ -142,8 +136,6 @@ function deleteTask(itemIndex) {
 	localStorage.setItem("taskList", JSON.stringify(tasks));
 	getTasks();
 }
-
-
 
 function handleResetButton() {
   localStorage.removeItem("taskList");
