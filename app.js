@@ -78,7 +78,7 @@ function getArchivesTasks() {
   
   if (!archiveList || archiveList.length === 0) {
     const p = document.createElement("p");
-	  p.textContent = "Il n'y a pas de tâche pour le moment...";
+	  p.textContent = "Il n'y a pas de tâche archivée pour le moment...";
 	  archiveUl.append(p);
   } else {
     archiveList.forEach((task, index) => {
