@@ -47,32 +47,53 @@ document.querySelector("form").onsubmit = function (e) {
   this.reset();
 };
 
-function getTasks() {
-  taskUl.textContent = "";
-  taskList = JSON.parse(localStorage.getItem("taskList"));
+function displayEmptyList() {
+	const span = document.createElement("span");
+	span.textContent = "Il n'y a pas de tâche pour le moment...";
+	taskUl.append(span);
+}
 
-  taskList.forEach((task, index) => {
-    addTaskToDom(task, index);
-  });
+
+
+function getTasks() {
+  taskList = JSON.parse(localStorage.getItem("taskList"));
+  taskUl.textContent = "";
+
+  if (taskList.length === 0) {
+		const p = document.createElement("p");
+		p.textContent = "Il n'y a pas de tâche pour le moment...";
+		taskUl.append(p);
+  } else {
+    taskList.forEach((task, index) => {
+		addTaskToDom(task, index);
+	});
+  }
 }
 
 function getArchivesTasks() {
+  archiveList = JSON.parse(localStorage.getItem("archiveList"));
+  console.log(archiveList);
   archiveUl.textContent = "";
   const button = document.createElement("button");
-  archiveList = JSON.parse(localStorage.getItem("archiveList"));
+  
+  if (!archiveList || archiveList.length === 0) {
+    const p = document.createElement("p");
+	  p.textContent = "Il n'y a pas de tâche pour le moment...";
+	  archiveUl.append(p);
+  } else {
+    archiveList.forEach((task, index) => {
+      addTaskToArchiveDom(task, index);
+      });
+      button.className = "deleteButton";
+		  button.textContent = "Reset";
 
-  button.className = "deleteButton";
-  button.textContent = "Reset";
+      divArchive.append(button);
 
-  archiveList.forEach((task, index) => {
-    addTaskToArchiveDom(task, index);
-  });
-  divArchive.append(button);
-
-  button.addEventListener("click", () => {
-    handleResetArchiveList();
-    getArchivesTasks();
-  });
+      button.addEventListener("click", () => {
+        handleResetArchiveList();
+        getArchivesTasks();
+      });
+  }
 }
 
 function addTaskToArchiveDom(task, index) {
@@ -81,7 +102,6 @@ function addTaskToArchiveDom(task, index) {
 
   span.textContent = index;
   archiveLi.className = "archiveLi";
-  console.log(task);
 
   archiveLi.append(span);
   archiveLi.append("  " + task);
@@ -114,6 +134,17 @@ function addTaskToDom(task, index) {
   });
 }
 
+function deleteTask(itemIndex) {
+	let tasksJSON = localStorage.getItem("taskList");
+	const tasks = JSON.parse(tasksJSON);
+	tasks.splice(itemIndex, 1);
+
+	localStorage.setItem("taskList", JSON.stringify(tasks));
+	getTasks();
+}
+
+
+
 function handleResetButton() {
   localStorage.removeItem("taskList");
 }
@@ -126,15 +157,6 @@ resetButton.addEventListener("click", () => {
   handleResetButton();
   getTasks();
 });
-
-function deleteTask(itemIndex) {
-  let tasksJSON = localStorage.getItem("taskList");
-  const tasks = JSON.parse(tasksJSON);
-  tasks.splice(itemIndex, 1);
-
-  localStorage.setItem("taskList", JSON.stringify(tasks));
-  getTasks();
-}
 
 getTasks();
 getArchivesTasks();
