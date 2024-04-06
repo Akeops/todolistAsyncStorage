@@ -1,8 +1,9 @@
+const divContent = document.querySelector(".content");
 let li;
 const taskUl = document.querySelector(".taskUl");
 const divArchive = document.querySelector(".archiveList");
 let archiveUl = document.querySelector(".archiveList");
-const resetButton = document.querySelector(".resetButton");
+const resetButton = document.querySelector("#resetButton");
 let taskList = [];
 let archiveList = [];
 
@@ -42,8 +43,18 @@ document.querySelector("form").onsubmit = function (e) {
   e.preventDefault();
 
   let task = document.querySelector(".form").elements["task"].value;
-  addTaskToLocalStorage(task);
-  this.reset();
+  if (!task || task === "") {
+    const p = document.createElement('p');
+    p.className = "emptyFormP"
+    p.textContent = "Ajoutez une tâche !";
+    divContent.append(p);
+    setTimeout(() => {
+      p.remove();
+    }, 3000); 
+  } else {
+    addTaskToLocalStorage(task);
+	this.reset();
+  }
 };
 
 // Permet d'afficher un message lorsque la liste est vide
@@ -57,7 +68,7 @@ function getTasks() {
   taskList = JSON.parse(localStorage.getItem("taskList"));
   taskUl.textContent = "";
 
-  if (taskList.length === 0) {
+  if (!taskList || taskList.length === 0) {
     displayEmptyList("Il n'y a pas de tâche pour le moment...", taskUl);
   } else {
     taskList.forEach((task, index) => {
@@ -68,7 +79,6 @@ function getTasks() {
 
 function getArchivesTasks() {
   archiveList = JSON.parse(localStorage.getItem("archiveList"));
-  console.log(archiveList);
   archiveUl.textContent = "";
   const button = document.createElement("button");
   

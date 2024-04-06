@@ -35,26 +35,46 @@ button {
   margin: 1em;
   padding: 5px;
   border-radius: 5px;
-  background-color: #20a8d7;
-  border: 1px solid #1288b7;
+  background-color: transparent;
+  color: #724be0;
+  border: 2px solid #724be0;
+  font-weight: 700;
 }
 
-button:hover {
+.globalButton:hover {
   cursor: pointer;
-  background-color: #1288b7;
-  border: 1px solid #1288b7;
+  background-color: transparent;
+  color: #633cc6;
+  border: 2px solid #633cc6;
 }
 
-button:active {
+.globalButton:active {
   color: black;
-  background-color: #106c94;
-  border: 0;
+  background-color: transparent;
+  color: #5939b1;
+  border: 1px solid #5939b1;
 }
 
 .deleteButton {
   padding: 5px;
   border-radius: 5px;
-  background-color: #20a8d7;
-  border: 1px solid #1288b7;
+  background-color: transparent;
+  border: 2px solid #8b2929;
+  color: #8b2929;
   margin-left: 1em;
+  font-weight: 700;
+}
+
+.deleteButton:hover {
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid #742828;
+  color: #742828;
+}
+
+.deleteButton:active {
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid #742828;
+  color: #742828;
 }
