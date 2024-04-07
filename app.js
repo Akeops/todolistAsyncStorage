@@ -102,12 +102,12 @@ function getArchivesTasks() {
 
 function addTaskToArchiveDom(task, index) {
   const archiveLi = document.createElement("li");
-  const span = document.createElement("span");
+  const p = document.createElement("p");
 
-  span.textContent = index;
+  p.textContent = index;
   archiveLi.className = "archiveLi";
 
-  archiveLi.append(span);
+  archiveLi.append(p);
   archiveLi.append("  " + task);
   archiveUl.appendChild(archiveLi);
 }
@@ -115,14 +115,14 @@ function addTaskToArchiveDom(task, index) {
 function addTaskToDom(task, index) {
   const li = document.createElement("li");
   const button = document.createElement("button");
-  const span = document.createElement("span");
+  const p = document.createElement("p");
 
-  span.textContent = index;
+  p.textContent = index;
   button.className = "deleteButton";
   button.textContent = "X";
   li.className = "listLi";
 
-  li.append(span);
+  li.append(p);
   li.append("  " + task);
   li.append(button);
   taskUl.appendChild(li);
@@ -147,18 +147,10 @@ function deleteTask(itemIndex) {
 	getTasks();
 }
 
-function handleResetButton() {
-  localStorage.removeItem("taskList");
-}
-
 function handleResetArchiveList() {
   localStorage.removeItem("archiveList");
 }
 
-resetButton.addEventListener("click", () => {
-  handleResetButton();
-  getTasks();
-});
 
 getTasks();
 getArchivesTasks();

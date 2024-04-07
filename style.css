@@ -6,14 +6,52 @@
 
 body {
   background-color: #e1ccc0;
+  margin-left: 15em;
+  margin-right: 15em;
+}
+
+h1 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h2 {
+  margin-bottom: 1em;
+}
+
+#principalDiv {
+  display: flex;
+}
+
+#listsDiv {
+  display: flex
 }
 
 #form {
-  display: inline-block;
+  text-align: center;
+  border: 1px solid black;
+  background-color: white;
+  padding: 1em;
+  margin: 1em;
+  width: 20em;
+  height: 10em;
+}
+
+
+#list, #archive {
+  text-align: center;
+  width: 20em;
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+}
+
+#addtask {
+  padding: 0.3em 0.5em;
 }
 
 .content {
-  display: flex;
+  display: inline;
   align-items: center;
 }
 
@@ -21,18 +59,20 @@ li {
   list-style-type: none; /* Enlève les puces ou les numéros */
 }
 
-.listLi {
+.listLi, .archiveLi {
+  display: flex;
+  align-items: center;
   padding: 0.5em;
 }
 
 .inputTask {
-  border: 1px solid #1288b7;
+  border: 2px solid #724be0;
   border-radius: 5px;
+  padding: 0.3em 0.5em;
 }
 
 button {
   display: inline;
-  margin: 1em;
   padding: 5px;
   border-radius: 5px;
   background-color: transparent;
@@ -75,6 +115,6 @@ button {
 .deleteButton:active {
   cursor: pointer;
   background-color: transparent;
-  border: 2px solid #742828;
+  border: 1px solid #742828;
   color: #742828;
 }

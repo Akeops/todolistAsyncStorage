@@ -10,22 +10,23 @@
     <title>My ToDoList</title>
 </head>
 <body>
-    <h1>My ToDoList</h1>
+    <h1 id="h1Title">My ToDoList</h1>
 
-    <h2>New task</h2>
-    <div id="form">
+    <div id="principalDiv">
+        <div id="form">
+        <h2>New task</h2>
         <form action="" method="post" class="form">
             <label>
-                <input type="text" class="inputTask" placeholder="Tâche..." name="task"/>
+                <input type="text" class="inputTask" placeholder="Nouvelle tâche" name="task"/>
             </label>
             <div class="content">
-                <button type="submit" class="globalButton">+</button>
+                <button id="addtask" type="submit" class="globalButton">+</button>
             </div>
         </form>
-        <button id="resetButton" class="globalButton">Reset</button>
     </div>
 
-    <div id="list">
+    <div id="listsDiv">
+        <div id="list">
         <h2>My tasks</h2>
         <ul class="taskUl">
         </ul>
@@ -36,5 +37,9 @@
         <ul class="archiveList">
         </ul>
     </div>
+    </div>
+    
+    </div>
+    
 </body>
 </html>
